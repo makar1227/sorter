@@ -23,19 +23,21 @@ class Sorter {
         indices.sort();
         for (var i = 0; i < indices.length - 1; i++) {
             for (var j = i + 1; j < indices.length; j++) {
-                if(this.comparator==undefined){
-                if (this.arr[indices[i]] > this.arr[indices[j]]) {
-                    let temp = this.arr[indices[i]];
-                    this.arr[indices[i]] = this.arr[indices[j]];
-                    this.arr[indices[j]] = temp;
-                }}
+                if (this.comparator === undefined) {
+                    if (this.arr[indices[i]] > this.arr[indices[j]]) {
+                        let temp = this.arr[indices[i]];
+                        this.arr[indices[i]] = this.arr[indices[j]];
+                        this.arr[indices[j]] = temp;
+                    }
+                }
                 else {
-                    var a =[];
+                    let a = [];
                     a.push(this.arr[indices[i]]);
                     a.push(this.arr[indices[j]]);
-                    a.sort(this.comparator());
-                    this.arr[indices[i]] = a[indices[0]];
-                    this.arr[indices[j]] = a[indices[1]];
+
+                    a = a.sort(this.comparator);
+                    this.arr[indices[i]] = a[0];
+                    this.arr[indices[j]] = a[1];
                 }
             }
         }
@@ -43,18 +45,8 @@ class Sorter {
     }
 
     setComparator(compareFunction) {
-            this.comparator=compareFunction;
+        this.comparator = compareFunction;
     }
 }
 
 module.exports = Sorter;
-
-// let sorter = new Sorter();
-// sorter.add(6);
-// sorter.add(5);
-// sorter.sort([0, 1]);
-// console.log(sorter.toArray())
-// sorter.add(2);
-// sorter.add(1);
-// sorter.sort([1, 0]);
-// console.log(sorter.toArray())
